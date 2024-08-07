@@ -1,0 +1,26 @@
+.container__auth{
+  background-color:whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  margin-top: 20%;
+}
+.form__login{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.input__login{
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.link__{
+  text-decoration: none;
+}
+.create__{
+  color: black;
+}
