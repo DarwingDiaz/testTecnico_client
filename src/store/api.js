@@ -1,9 +1,24 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// Define el slice de la API
+const baseQuery = fetchBaseQuery({
+  baseUrl: 'http://localhost:3001', // Reemplaza con la URL de tu backend
+  prepareHeaders: (headers) => {
+    // Obtén el token del localStorage
+    const token = localStorage.getItem('token');
+    
+    // Si hay un token, inclúyelo en los headers
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
+    
+    return headers;
+  },
+});
+
+
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001' }), // Reemplaza con la URL de tu backend
+  baseQuery,
   endpoints: (builder) => ({
     loginUser: builder.mutation({
       query: (userData) => ({

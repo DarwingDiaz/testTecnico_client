@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { useRegisterUserMutation } from "../../store/api"; // Ajusta la ruta de importación según sea necesario
-import style from "./Register.module.css"; // Ajusta la ruta de importación según sea necesario
+import { useRegisterUserMutation } from "../../store/api";
+import { useNavigate } from "react-router-dom"; // Importa el hook useNavigate
+import style from "./Register.module.css";
 
 export const Register = () => {
   const [registerData, setRegisterData] = useState({
     username: "",
     email: "",
     password: "",
+    role: "Employee",
   });
 
   const [registerUser, { isLoading, error }] = useRegisterUserMutation();
+  const navigate = useNavigate(); // Inicializa el hook useNavigate
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,6 +28,9 @@ export const Register = () => {
     try {
       const data = await registerUser(registerData).unwrap();
       console.log('Registration successful:', data);
+
+      // Redirige al usuario a la página de login después del registro
+      navigate('/login');
     } catch (err) {
       console.error('Failed to register:', err);
     }
@@ -57,6 +63,16 @@ export const Register = () => {
           className={style.input__login}
           onChange={handleChange}
         />
+        <select
+          name="role"
+          value={registerData.role}
+          onChange={handleChange}
+          className={style.input__login}
+        >
+          <option value="Employee">Employee</option>
+          <option value="Manager">Manager</option>
+          <option value="Admin">Admin</option>
+        </select>
         <Button type="submit" disabled={isLoading}>Register</Button>
       </form>
       {error && <p>Error: {error.message}</p>}
