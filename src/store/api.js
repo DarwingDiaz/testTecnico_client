@@ -12,8 +12,15 @@ export const api = createApi({
         body: userData,
       }),
     }),
+    registerUser: builder.mutation({
+      query: (userData) => ({
+        url: 'auth/register', // La ruta del endpoint de registro en tu backend
+        method: 'POST',
+        body: userData,
+      }),
+    }),
   }),
 });
 
-// Exporta el hook generado para usarlo en tus componentes
-export const { useLoginUserMutation } = api;
+// Exporta los hooks generados para usarlos en tus componentes
+export const { useLoginUserMutation, useRegisterUserMutation } = api;

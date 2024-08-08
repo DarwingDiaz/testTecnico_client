@@ -5,14 +5,14 @@ import { useLoginUserMutation } from '../../store/api'; // Importa el hook gener
 import style from './Login.module.css';
 
 export const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setEmail] = useState('');
+  const [password, setUsername] = useState('');
   const [loginUser, { data, error, isLoading }] = useLoginUserMutation(); // Usa el hook generado
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await loginUser({ email, password }).unwrap();
+      const response = await loginUser({ username, password }).unwrap();
       console.log('Login successful:', response);
     } catch (err) {
       console.error('Failed to login:', err);
@@ -23,9 +23,9 @@ export const Login = () => {
     <div className={`container-sm p-3 ${style.container__auth}`}>
       <form className={`p-4 ${style.form__login}`} onSubmit={handleSubmit}>
         <input
-          type="email"
-          placeholder="Email"
-          value={email}
+          type="username"
+          placeholder="Username"
+          value={username}
           className={style.input__login}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -34,7 +34,7 @@ export const Login = () => {
           placeholder="Password"
           value={password}
           className={style.input__login}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <Button type="submit">Login</Button> {/* Cambia a type="submit" */}
       </form>
